@@ -97,7 +97,6 @@ OpenSource-Compass/
 2. **Clone** your fork  
    ```bash
    git clone https://github.com/your-username/OpenSource-Compass.git
-````
 
 3. Open `index.html` in your browser
 4. Start contributing 🎉
