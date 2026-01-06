@@ -53,7 +53,7 @@ function loadHomePagePrograms() {
     // Check if container exists (to avoid errors on pages without this section)
     if (!container) return;
 
-    fetch('data/programs.json')
+    fetch('../data/programs.json')
         .then(response => {
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
