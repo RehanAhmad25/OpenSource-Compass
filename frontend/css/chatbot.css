@@ -1,5 +1,5 @@
-
-/* Chatbot Styles */
+/* Import variables if not already available in scope, 
+   though usually inherited from style.css */
 :root {
     --chat-primary: #4D96FF;
     --chat-bg: #fff;
@@ -22,30 +22,29 @@ body.dark-mode {
 /* Floating Chat Button */
 .chat-widget-btn {
     position: fixed;
-    bottom: 90px;
-    right: 30px;
+    bottom: 2rem;
+    right: 2rem;
+    /* CHANGE: Blue -> Golden Gradient */
+    background: linear-gradient(135deg, var(--primary-gold), var(--secondary-gold));
+    color: var(--deep-navy);
     width: 60px;
     height: 60px;
-    background-color: var(--chat-primary);
-    color: white;
     border-radius: 50%;
     border: none;
+    font-size: 1.8rem;
     cursor: pointer;
     box-shadow: 0 4px 12px rgb(0 0 0 / 15%);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 24px;
-    transition: transform 0.3s ease, background-color 0.3s ease;
-    z-index: 1000;
 }
 
 .chat-widget-btn:hover {
     transform: scale(1.1);
-    background-color: #1a73e8;
+    box-shadow: 0 6px 20px rgba(212, 175, 55, 0.6);
 }
 
-/* Chat Window */
+/* 2. Chat Window Container */
 .chat-window {
     position: fixed;
     bottom: 100px;
@@ -71,36 +70,54 @@ body.dark-mode {
     pointer-events: all;
 }
 
-/* Chat Header */
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* 3. Header */
 .chat-header {
-    background-color: var(--chat-primary);
-    color: white;
-    padding: 15px;
+    /* CHANGE: Blue -> Deep Navy Background */
+    background: var(--deep-navy);
+    /* CHANGE: White -> Gold Text */
+    color: var(--primary-gold);
+    padding: 1rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-weight: 600;
+    font-weight: bold;
+    font-family: 'Playfair Display', serif;
+    letter-spacing: 0.5px;
 }
 
-.chat-header .close-btn {
+.close-btn {
     background: none;
     border: none;
-    color: white;
-    font-size: 20px;
+    color: var(--primary-gold);
+    font-size: 1.5rem;
     cursor: pointer;
+    transition: transform 0.2s;
 }
 
-/* Chat Messages Area */
+.close-btn:hover {
+    transform: rotate(90deg);
+}
+
+/* 4. Messages Area */
 .chat-messages {
     flex: 1;
-    padding: 15px;
+    padding: 1rem;
     overflow-y: auto;
+    background: var(--warm-cream); /* Light cream background */
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 12px;
 }
 
+/* Message Bubbles */
 .message {
+    padding: 0.8rem 1rem;
+    border-radius: 12px;
     max-width: 80%;
     padding: 10px 14px;
     border-radius: 18px;
@@ -110,20 +127,24 @@ body.dark-mode {
 }
 
 .message.bot {
+    background: white;
+    color: #333;
     align-self: flex-start;
-    background-color: var(--chat-bot-msg-bg);
-    color: var(--chat-bot-msg-text);
-    border-bottom-left-radius: 4px;
+    border-bottom-left-radius: 2px;
+    border: 1px solid rgba(0,0,0,0.05);
 }
 
 .message.user {
+    /* CHANGE: Blue -> Gold Background */
+    background: var(--primary-gold);
+    /* CHANGE: White -> Navy Text (High Contrast) */
+    color: var(--deep-navy);
     align-self: flex-end;
-    background-color: var(--chat-user-msg-bg);
-    color: var(--chat-user-msg-text);
-    border-bottom-right-radius: 4px;
+    border-bottom-right-radius: 2px;
+    font-weight: 600;
 }
 
-/* Chat Input Area */
+/* 5. Input Area */
 .chat-input-area {
     padding: 15px;
     border-top: 1px solid rgb(0 0 0 / 10%);
@@ -135,20 +156,36 @@ body.dark-mode .chat-input-area {
     border-top: 1px solid rgb(255 255 255 / 10%);
 }
 
-.chat-input-area input {
+#chatInput {
     flex: 1;
-    padding: 10px;
+    padding: 0.8rem;
     border: 1px solid #ddd;
-    border-radius: 20px;
+    border-radius: 25px;
     outline: none;
-    background-color: var(--chat-bg);
-    color: var(--chat-text);
+    font-family: inherit;
 }
 
-.chat-input-area button {
-    background: none;
+#chatInput:focus {
+    border-color: var(--primary-gold);
+}
+
+#sendBtn {
+    /* CHANGE: Blue -> Navy Button */
+    background: var(--deep-navy);
+    color: var(--primary-gold);
     border: none;
-    color: var(--chat-primary);
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
     cursor: pointer;
-    font-weight: 600;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+}
+
+#sendBtn:hover {
+    background: var(--primary-gold);
+    color: var(--deep-navy);
 }
