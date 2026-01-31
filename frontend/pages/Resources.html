@@ -78,7 +78,7 @@
       margin-right: 4.5rem;
       cursor: pointer;
       width: 120px;
-      /* Staggered Entrance Animation */
+      height: 180px; /* Lock the card height */
       opacity: 0; 
       transform: translateY(20px);
       animation: fadeInUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
@@ -124,6 +124,8 @@
       border: 3px solid #e0e0e0;
       color: #999;
       position: relative;
+      flex-shrink: 0; /* Prevents the node from squishing */
+      margin-bottom: 20px;
       /* overflow: hidden; Removed overflow hidden to allow Aura to spill out if needed, handled via z-index */
     }
 
@@ -134,6 +136,8 @@
       color: #aaa;
       cursor: not-allowed;
       box-shadow: none;
+      transform: scale(1.25);
+      margin-bottom: 28px;
     }
 
     /* STATUS: COMPLETED */
@@ -190,7 +194,9 @@
     /* Text Styling */
     .level-meta {
       text-align: center;
-      margin-top: 1.2rem;
+      position: absolute;
+      top: 95px; /* This is the "horizon line" for all your text */
+      width: 100%;
       transition: opacity 0.3s;
     }
 
@@ -216,6 +222,9 @@
       font-weight: 600;
       color: var(--deep-navy);
       line-height: 1.2;
+      display: block;
+      min-height: 2.4em; 
+      margin-top: 0.2rem;
     }
     
     .level-item.locked .level-title {
