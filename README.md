@@ -113,10 +113,20 @@ OPENSOURCE-COMPASS/
 
 ---
 ## 🖼️ Screenshots
-
 <a href="frontend/assets/templates/Home.png" target="_blank">
   View Home Page
 </a>
+
+
+<a href="frontend/assets/templates/guides.png" target="_blank">
+  View guides Page
+</a>
+
+
+<a href="frontend/assets/templates/Programs.png" target="_blank">
+  View Programs Page
+</a>
+
 
 
 ## 👥 Team — SWOC’26
