@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <link rel="stylesheet" href="../../css/style.css">
-    <link rel="stylesheet" href="../../css/navigation.css" />
+     <link rel="stylesheet" href="../../css/navigation.css" />
     <!-- Font Awesome (REQUIRED for logo) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
@@ -38,54 +38,48 @@
                 linear-gradient(135deg, var(--warm-cream), #cbce9380);
             color: #ffffff;
         }
-
         body.dark-mode .gsoc-hero {
-            background:
-                /* soft gold radial glow on top */
-                radial-gradient(circle at top,
-                    rgba(228, 199, 106, 0.28),
-                    transparent 45%),
-                /* deep-navy gradient base */
-                linear-gradient(135deg, var(--deep-navy), #0f172a);
-            color: var(--text-primary);
-            /* readable text on dark bg */
-        }
+    background:
+        /* soft gold radial glow on top */
+        radial-gradient(circle at top,
+            rgba(228, 199, 106, 0.28),
+            transparent 45%),
+        /* deep-navy gradient base */
+        linear-gradient(135deg, var(--deep-navy), #0f172a);
+    color: var(--text-primary); /* readable text on dark bg */
+}
 
         body.dark-mode .gsoc-badge {
-            background: rgba(228, 199, 106, 0.15);
-            /* soft gold glow */
-            color: var(--primary-gold);
-            /* gold text on dark bg */
-        }
+    background: rgba(228, 199, 106, 0.15); /* soft gold glow */
+    color: var(--primary-gold); /* gold text on dark bg */
+}
 
-        body.dark-mode .gsoc-title {
-            color: var(--primary-gold);
-            /* title in gold */
-        }
+body.dark-mode .gsoc-title {
+    color: var(--primary-gold); /* title in gold */
+}
 
-        body.dark-mode .gsoc-title span {
-            color: var(--secondary-gold);
-            /* highlight span in secondary gold */
-        }
+body.dark-mode .gsoc-title span {
+    color: var(--secondary-gold); /* highlight span in secondary gold */
+}
 
-        body.dark-mode .gsoc-tagline {
-            color: var(--text-secondary);
-            /* softer text on dark bg */
-        }
+body.dark-mode .gsoc-tagline {
+    color: var(--text-secondary); /* softer text on dark bg */
+}
 
-        body.dark-mode .gsoc-cta {
-            color: var(--deep-navy);
-            /* text contrast for gold background */
-            background: linear-gradient(135deg,
-                    var(--primary-gold),
-                    var(--secondary-gold));
-            box-shadow: var(--shadow-main);
-        }
+body.dark-mode .gsoc-cta {
+    color: var(--deep-navy); /* text contrast for gold background */
+    background: linear-gradient(
+        135deg,
+        var(--primary-gold),
+        var(--secondary-gold)
+    );
+    box-shadow: var(--shadow-main);
+}
 
-        body.dark-mode .gsoc-cta:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: var(--shadow-hover);
-        }
+body.dark-mode .gsoc-cta:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: var(--shadow-hover);
+}
 
 
         /* Soft animated glow */
@@ -101,6 +95,15 @@
             pointer-events: none;
         }
 
+        @keyframes bgFloat {
+            from {
+                transform: translateY(0);
+            }
+
+            to {
+                transform: translateY(-60px);
+            }
+        }
 
         .gsoc-hero-content {
             max-width: 880px;
@@ -1030,7 +1033,153 @@
             animation-delay: 0.6s;
         }
 
-       
+        @keyframes listFadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Container */
+        .gsoc-eligibility {
+            padding: 6rem 6% 5rem;
+            background: var(--light-parchment);
+        }
+
+        body.dark-mode .gsoc-eligibility {
+            background: var(--deep-navy);
+            color: var(--text-primary);
+        }
+
+        /* Header */
+        .eligibility-header {
+            text-align: center;
+            margin-bottom: 3.5rem;
+        }
+
+        .eligibility-header h2 {
+            font-size: clamp(2.2rem, 4vw, 3rem);
+            font-weight: 900;
+            color: var(--charcoal-dark);
+        }
+
+        body.dark-mode .eligibility-header h2 {
+            color: var(--primary-gold);
+        }
+
+        .eligibility-header p {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            margin-top: 0.6rem;
+        }
+
+        body.dark-mode .eligibility-header p {
+            color: var(--text-secondary);
+        }
+
+        /* Grid Layout */
+        .eligibility-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Card */
+        .eligibility-card {
+            background: linear-gradient(180deg, var(--warm-cream), var(--light-parchment));
+            border-radius: 22px;
+            padding: 2.5rem 2rem;
+            box-shadow: var(--shadow-main);
+            text-align: center;
+            position: relative;
+            transition: transform 0.35s var(--bounce-curve), box-shadow 0.35s ease;
+            overflow: hidden;
+        }
+
+        body.dark-mode .eligibility-card {
+            background: linear-gradient(180deg, var(--deep-navy), var(--light-parchment));
+            box-shadow: var(--shadow-main);
+        }
+
+        /* Icon Circle */
+        .eligibility-icon {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 1.6rem;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-gold), var(--secondary-gold));
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            color: #1a1a1a;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+            transition: transform 0.35s var(--bounce-curve);
+        }
+
+        .eligibility-card:hover {
+            transform: translateY(-10px) scale(1.04);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .eligibility-card:hover .eligibility-icon {
+            transform: scale(1.15) rotate(10deg);
+        }
+
+        /* Card Text */
+        .eligibility-card h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.9rem;
+            color: var(--charcoal-dark);
+        }
+
+        body.dark-mode .eligibility-card h3 {
+            color: var(--primary-gold);
+        }
+
+        .eligibility-card p {
+            font-size: 1rem;
+            line-height: 1.65;
+            color: var(--text-secondary);
+        }
+
+        body.dark-mode .eligibility-card p {
+            color: var(--text-secondary);
+        }
+
+        /* Subtle card fade-in animation */
+        .eligibility-card {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: cardFadeIn 0.6s forwards;
+        }
+
+        .eligibility-card:nth-child(1) {
+            animation-delay: 0.2s;
+        }
+
+        .eligibility-card:nth-child(2) {
+            animation-delay: 0.4s;
+        }
+
+        .eligibility-card:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+
+        .eligibility-card:nth-child(4) {
+            animation-delay: 0.8s;
+        }
+
+        @keyframes cardFadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         /* Container */
         .gsoc-prepare {
             padding: 6rem 6% 5rem;
@@ -1162,6 +1311,13 @@
 
         .prepare-card:nth-child(4) {
             animation-delay: 0.8s;
+        }
+
+        @keyframes prepareFadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* Container */
@@ -1300,6 +1456,13 @@
             animation-delay: 0.8s;
         }
 
+        @keyframes resourceFadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         /* Resource Card */
         .resource-card {
             display: flex;
@@ -1323,117 +1486,6 @@
         .resource-btn {
             display: inline-flex;
             align-items: center;
-            font-size: 1.8rem;
-            margin-bottom: 1.6rem;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
-            transition: transform 0.35s var(--bounce-curve);
-        }
-
-        .stipend-card:hover .stipend-icon {
-            transform: scale(1.15) rotate(5deg);
-        }
-
-        /* Text & List */
-        .stipend-card h3 {
-            font-size: 1.35rem;
-            font-weight: 800;
-            margin-bottom: 0.9rem;
-            color: var(--charcoal-dark);
-        }
-        .stipend-desc {
-            font-size: 1rem;
-            line-height: 1.65;
-            margin-bottom: 1rem;
-            color: var(--text-secondary);
-        }
-
-
-        .stipend-list li {
-            margin-bottom: 0.5rem;
-            font-size: 0.95rem;
-            color: var(--charcoal-dark);
-            opacity: 0;
-            transform: translateY(10px);
-            animation: listFadeIn 0.5s forwards;
-        }
-
-     
-
-        .stipend-list li:nth-child(1) {
-            animation-delay: 0.2s;
-        }
-
-        .stipend-list li:nth-child(2) {
-            animation-delay: 0.4s;
-        }
-
-        .stipend-list li:nth-child(3) {
-            animation-delay: 0.6s;
-        }
-
-        @keyframes listFadeIn {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Container */
-        .gsoc-eligibility {
-            padding: 6rem 6% 5rem;
-            background: var(--light-parchment);
-        }
-
-        /* Header */
-        .eligibility-header {
-            text-align: center;
-            margin-bottom: 3.5rem;
-        }
-
-        .eligibility-header h2 {
-            font-size: clamp(2.2rem, 4vw, 3rem);
-            font-weight: 900;
-            color: var(--charcoal-dark);
-        }
-
-
-        .eligibility-header p {
-            font-size: 1.05rem;
-            color: var(--text-secondary);
-            margin-top: 0.6rem;
-        }
-
-        /* Grid Layout */
-        .eligibility-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2.5rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        /* Card */
-        .eligibility-card {
-            background: linear-gradient(180deg, var(--warm-cream), var(--light-parchment));
-            border-radius: 22px;
-            padding: 2.5rem 2rem;
-            box-shadow: var(--shadow-main);
-            text-align: center;
-            position: relative;
-            transition: transform 0.35s var(--bounce-curve), box-shadow 0.35s ease;
-            overflow: hidden;
-        }
-
-    
-
-        /* Icon Circle */
-        .eligibility-icon {
-            width: 70px;
-            height: 70px;
-            margin: 0 auto 1.6rem;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary-gold), var(--secondary-gold));
-            display: flex;
             justify-content: center;
             margin-top: 1.6rem;
             padding: 0.85rem 2rem;
@@ -1525,6 +1577,13 @@
             animation-delay: 0.8s;
         }
 
+        @keyframes resourceFadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         .gsoc-cta-section {
             padding: 6rem 2rem;
             text-align: center;
@@ -1533,142 +1592,6 @@
             overflow: hidden;
             color: #0f0f0f;
         }
-
-
-          /* Container */
-        .gsoc-eligibility {
-            padding: 6rem 6% 5rem;
-            background: var(--light-parchment);
-        }
-
-        body.dark-mode .gsoc-eligibility {
-            background: var(--deep-navy);
-            color: var(--text-primary);
-        }
-
-        /* Header */
-        .eligibility-header {
-            text-align: center;
-            margin-bottom: 3.5rem;
-        }
-
-        .eligibility-header h2 {
-            font-size: clamp(2.2rem, 4vw, 3rem);
-            font-weight: 900;
-            color: var(--charcoal-dark);
-        }
-
-        body.dark-mode .eligibility-header h2 {
-            color: var(--primary-gold);
-        }
-
-        .eligibility-header p {
-            font-size: 1.05rem;
-            color: var(--text-secondary);
-            margin-top: 0.6rem;
-        }
-
-        body.dark-mode .eligibility-header p {
-            color: var(--text-secondary);
-        }
-
-        /* Grid Layout */
-        .eligibility-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2.5rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        /* Card */
-        .eligibility-card {
-            background: linear-gradient(180deg, var(--warm-cream), var(--light-parchment));
-            border-radius: 22px;
-            padding: 2.5rem 2rem;
-            box-shadow: var(--shadow-main);
-            text-align: center;
-            position: relative;
-            transition: transform 0.35s var(--bounce-curve), box-shadow 0.35s ease;
-            overflow: hidden;
-        }
-
-        body.dark-mode .eligibility-card {
-            background: linear-gradient(180deg, var(--deep-navy), var(--light-parchment));
-            box-shadow: var(--shadow-main);
-        }
-
-        /* Icon Circle */
-        .eligibility-icon {
-            width: 70px;
-            height: 70px;
-            margin: 0 auto 1.6rem;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary-gold), var(--secondary-gold));
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 2rem;
-            color: #1a1a1a;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
-            transition: transform 0.35s var(--bounce-curve);
-        }
-
-        .eligibility-card:hover {
-            transform: translateY(-10px) scale(1.04);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .eligibility-card:hover .eligibility-icon {
-            transform: scale(1.15) rotate(10deg);
-        }
-
-        /* Card Text */
-        .eligibility-card h3 {
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 0.9rem;
-            color: var(--charcoal-dark);
-        }
-
-        body.dark-mode .eligibility-card h3 {
-            color: var(--primary-gold);
-        }
-
-        .eligibility-card p {
-            font-size: 1rem;
-            line-height: 1.65;
-            color: var(--text-secondary);
-        }
-
-        body.dark-mode .eligibility-card p {
-            color: var(--text-secondary);
-        }
-
-        /* Subtle card fade-in animation */
-        .eligibility-card {
-            opacity: 0;
-            transform: translateY(20px);
-            animation: cardFadeIn 0.6s forwards;
-        }
-
-        .eligibility-card:nth-child(1) {
-            animation-delay: 0.2s;
-        }
-
-        .eligibility-card:nth-child(2) {
-            animation-delay: 0.4s;
-        }
-
-        .eligibility-card:nth-child(3) {
-            animation-delay: 0.6s;
-        }
-
-        .eligibility-card:nth-child(4) {
-            animation-delay: 0.8s;
-        }
-
-        
 
         body.dark-mode .gsoc-cta-section {
             background: linear-gradient(135deg, var(--deep-navy), #141a2b);
@@ -1683,7 +1606,17 @@
             animation: ctaFadeUp 1s ease-out both;
         }
 
-   
+        @keyframes ctaFadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.98);
+            }
+
+            to {
+                opacity: 1;
+                transform: none;
+            }
+        }
 
         .gsoc-cta-section h2 {
             font-size: clamp(2rem, 4vw, 3rem);
@@ -1743,72 +1676,7 @@
                 font-size: 1rem;
             }
         }
-        
-        @keyframes bgFloat {
-            from {
-                transform: translateY(0);
-            }
-
-            to {
-                transform: translateY(-60px);
-            }
-        }
-             @keyframes ctaFadeUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px) scale(0.98);
-            }
-
-            to {
-                opacity: 1;
-                transform: none;
-            }
-        }
-           @keyframes resourceFadeIn {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-           @keyframes resourceFadeIn {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        
-        @keyframes prepareFadeIn {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        @keyframes cardFadeIn {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-         @keyframes listFadeIn {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-
-
-
-
-
-
-
-
     </style>
-  <link rel='manifest' href='../../../manifest.json' />
 </head>
 
 <body>
@@ -2221,7 +2089,7 @@
     <div id="footer"></div>
 
     <script src="../../js/components.js"></script>
-
+    
     <script src="../../js/main.js"></script>
 
     <button id="scrollTopBtn" title="Back to Top">
@@ -2280,7 +2148,6 @@
             }
         });
     </script>
-  <script src='../../js/pwa.js'></script>
 </body>
 
 </html>
