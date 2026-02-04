@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 import connectDB from "./config/db.js";
 import authRoutes from "./routes/authRoutes.js";
 import contributorProgressRoutes from "./routes/contributorProgressRoutes.js";
-
+import chatRoute from "./routes/chat.route.js";
 dotenv.config();
 
 const app = express();
@@ -12,7 +12,7 @@ const app = express();
 // Middleware
 app.use(cors());
 app.use(express.json());
-
+app.use("/api", chatRoute);
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/contributor/progress", contributorProgressRoutes);
