@@ -1,7 +1,10 @@
-const CACHE_NAME = 'os-compass-v3'; // Incremented version
+const CACHE_NAME = 'os-compass-v3';
+const OFFLINE_PAGE = './offline.html';
+
 const ASSETS_TO_CACHE = [
     './',
     './index.html',
+    './offline.html',
     './frontend/css/style.css',
     './frontend/css/home.css',
     './frontend/js/components.js',
@@ -13,7 +16,7 @@ const ASSETS_TO_CACHE = [
     './public/icon.png'
 ];
 
-// Install event - Cache assets
+/* INSTALL */
 self.addEventListener('install', (event) => {
     self.skipWaiting(); // Force the waiting service worker to become the active service worker
     event.waitUntil(
@@ -41,45 +44,65 @@ self.addEventListener('activate', (event) => {
             })
         ])
     );
+    self.skipWaiting();
 });
 
-// Fetch event - Robust Cache Strategy
+/* ACTIVATE */
+self.addEventListener('activate', (event) => {
+    event.waitUntil(
+        caches.keys().then((keys) =>
+            Promise.all(
+                keys.map((key) => {
+                    if (key !== CACHE_NAME) {
+                        return caches.delete(key);
+                    }
+                })
+            )
+        )
+    );
+    self.clients.claim();
+});
+
+/* FETCH */
 self.addEventListener('fetch', (event) => {
-    // Only handle GET requests
-    if (event.request.method !== 'GET') return;
+    const request = event.request;
 
-    const url = new URL(event.request.url);
-
-    // Network-First strategy for HTML files to ensure users always see the latest content
-    if (event.request.mode === 'navigate' || url.pathname.endsWith('.html') || url.pathname === '/') {
+    // Handle navigation (HTML pages)
+    if (request.mode === 'navigate') {
         event.respondWith(
-            fetch(event.request)
+            fetch(request)
                 .then((response) => {
-                    // Update cache with the fresh version
                     const copy = response.clone();
-                    caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
+                    caches.open(CACHE_NAME).then((cache) => {
+                        cache.put(request, copy);
+                    });
                     return response;
                 })
-                .catch(() => {
-                    // Fallback to cache if network fails
-                    return caches.match(event.request);
-                })
+                .catch(() => caches.match(request).then(res => res || caches.match(OFFLINE_PAGE)))
         );
         return;
     }
 
-    // Stale-While-Revalidate for other assets (CSS, JS, Images)
+    // Handle static assets (CSS, JS, images)
     event.respondWith(
-        caches.match(event.request).then((cachedResponse) => {
-            const fetchPromise = fetch(event.request).then((networkResponse) => {
-                if (networkResponse && networkResponse.status === 200) {
-                    const copy = networkResponse.clone();
-                    caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
-                }
-                return networkResponse;
-            });
+        caches.match(request).then((cached) => {
+            if (cached) {
+                // Update cache in background
+                fetch(request).then((response) => {
+                    caches.open(CACHE_NAME).then((cache) => {
+                        cache.put(request, response.clone());
+                    });
+                });
+                return cached;
+            }
 
-            return cachedResponse || fetchPromise;
+            return fetch(request).then((response) => {
+                const copy = response.clone();
+                caches.open(CACHE_NAME).then((cache) => {
+                    cache.put(request, copy);
+                });
+                return response;
+            });
         })
     );
 });
