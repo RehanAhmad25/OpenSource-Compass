@@ -7,8 +7,10 @@
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
-    
+    <link rel="stylesheet" href="css/style.css"> 
+    <script src="../../../../"></script>
+
+</body>
     
     <style>
         :root {
@@ -166,8 +168,6 @@
             }
         }
         
-
-/* ✅ Modal */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -357,51 +357,7 @@
     </p>
   <a id="openRegBtn" href="#regOverlay" class="hero-btn">Register Now</a>
 </section>
-<!-- Registration Modal -->
-<div class="modal-overlay" id="regOverlay">
-  <div class="modal">
-    <a class="modal-close" id="closeRegBtn" href="#">✕</a>
 
-    <div class="modal-head">
-      <div class="modal-badge">SWOC</div>
-      <h3>Registration Form</h3>
-      <p>Fill your details — we'll mail you updates.</p>
-    </div>
-
-    <form class="modal-form" id="regForm">
-      <div class="grid">
-        <div class="field">
-          <label>Name</label>
-          <input name="name" type="text" placeholder="Your name" required>
-        </div>
-
-        <div class="field">
-          <label>Email</label>
-          <input name="email" type="email" placeholder="yourmail@gmail.com" required>
-        </div>
-      </div>
-
-      <div class="grid">
-        <div class="field">
-          <label>GitHub Username</label>
-          <input name="github" type="text" placeholder="e.g., ganeshkannan" required>
-        </div>
-
-        <div class="field">
-          <label>Phone</label>
-          <input name="phone" type="tel" placeholder="+91 98765 43210" required>
-        </div>
-      </div>
-
-      <button class="submit-btn" type="submit" id="submitBtn">
-        <span class="btn-text">Submit Registration</span>
-        <span class="btn-loader"></span>
-      </button>
-
-      <p class="status" id="statusMsg"></p>
-    </form>
-  </div>
-</div>
 
 
 <!-- Why Section -->
@@ -450,7 +406,50 @@
     </iframe>
   </div>
 </section>
+ <div class="modal-overlay" id="regOverlay">
+  <div class="modal">
+    <a class="modal-close" id="closeRegBtn" href="#">✕</a>
 
+    <div class="modal-head">
+      <div class="modal-badge">SWOC</div>
+      <h3>Registration Form</h3>
+      <p>Fill your details — we'll mail you updates.</p>
+    </div>
+
+    <form class="modal-form" id="regForm">
+      <div class="grid">
+        <div class="field">
+          <label>Name</label>
+          <input name="name" type="text" placeholder="Your name" required>
+        </div>
+
+        <div class="field">
+          <label>Email</label>
+          <input name="email" type="email" placeholder="yourmail@gmail.com" required>
+        </div>
+      </div>
+
+      <div class="grid">
+        <div class="field">
+          <label>GitHub Username</label>
+          <input name="github" type="text" placeholder="e.g., ganeshkannan" required>
+        </div>
+
+        <div class="field">
+          <label>Phone</label>
+          <input name="phone" type="tel" placeholder="+91 98765 43210" required>
+        </div>
+      </div>
+
+      <button class="submit-btn" type="submit" id="submitBtn">
+        <span class="btn-text">Submit Registration</span>
+        <span class="btn-loader"></span>
+      </button>
+
+      <p class="status" id="statusMsg"></p>
+    </form>
+  </div>
+</div>
 <!-- Programs Section -->
 <section class="programs">
     <h3>Open Source Programs</h3>
@@ -484,68 +483,4 @@
 <footer>
     <p>© 2025 OpenSource Compass • Built for the Open Source Community</p>
 </footer>
-<-----form script----
-<script>
-// Simple local modal & form handling + persistence + CSV export
-const overlay = document.getElementById("regOverlay");
-const openBtn = document.getElementById("openRegBtn");
-const closeBtn = document.getElementById("closeRegBtn");
-const form = document.getElementById("regForm");
-const statusMsg = document.getElementById("statusMsg");
-const submitBtn = document.getElementById("submitBtn");
-const STORAGE_KEY = 'registrations_v1';
-
-function escapeHtml(str){
-  if (!str) return '';
-  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
-
-function loadRegistrations(){
-  try{
-    const raw = localStorage.getItem(STORAGE_KEY);
-    return raw ? JSON.parse(raw) : [];
-  } catch(e){ return []; }
-}
-
-function saveRegistrations(arr){
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(arr));
-}
-
-function addRegistration(data){
-  const regs = loadRegistrations();
-  regs.unshift(Object.assign({}, data, { timestamp: new Date().toISOString() }));
-  saveRegistrations(regs);
-}
-
-console.log("Modal loaded");
-
-if (openBtn && overlay) {
-  openBtn.addEventListener('click', function(e){ e.preventDefault(); overlay.classList.add('show'); document.body.style.overflow = 'hidden'; });
-}
-function closeModal(){ if (overlay) { overlay.classList.remove('show'); document.body.style.overflow = ''; } }
-if (closeBtn) closeBtn.addEventListener('click', closeModal);
-if (overlay) overlay.addEventListener('click', (e)=> { if (e.target === overlay) closeModal(); });
-document.addEventListener('keydown', (e)=> { if (e.key === 'Escape') closeModal(); });
-
-if (form && submitBtn){
-  form.addEventListener('submit', function(e){
-    e.preventDefault();
-    const data = {
-      name: form.name.value.trim(),
-      email: form.email.value.trim(),
-      github: form.github.value.trim(),
-      phone: form.phone ? form.phone.value.trim() : ''
-    };
-    addRegistration(data);
-    console.log('Saved registration:', data);
-    if (statusMsg){ statusMsg.textContent = '✅ Successful — details uploaded. We\'ll contact you soon.'; statusMsg.className = 'status ok'; }
-    form.reset();
-    setTimeout(closeModal, 1200);
-  });
-}
-
-// Registration data saved to localStorage — view via admin.html
-</script>
-
-</body>
 </html>
