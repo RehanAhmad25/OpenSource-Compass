@@ -1258,15 +1258,15 @@
 
                 <div class="hero-stats">
                     <div>
-                        <h3>150+</h3>
+                        <h3 class="stat-number" data-target="150">0</h3>
                         <span>Mentors</span>
                     </div>
                     <div>
-                        <h3>300+</h3>
+                        <h3 class="stat-number" data-target="300">0</h3>
                         <span>Projects</span>
                     </div>
                     <div>
-                        <h3>10K+</h3>
+                        <h3 class="stat-number" data-target="10000" data-suffix="+">0</h3>
                         <span>Contributors</span>
                     </div>
                 </div>
@@ -1758,6 +1758,65 @@
         });
         });
     </script>
+
+    <script>
+    /* =========================================
+    HERO STATS COUNT-UP ANIMATION
+    ========================================= */
+
+    const statNumbers = document.querySelectorAll('.stat-number');
+
+    const prefersReducedMotion =
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function formatNumber(num) {
+    if (num >= 1000) {
+        return (num / 1000).toFixed(num >= 10000 ? 0 : 1) + 'K+';
+    }
+    return num + '+';
+    }
+
+    function animateCount(el) {
+    const target = parseInt(el.getAttribute('data-target'));
+    const duration = 1500;
+    const startTime = performance.now();
+
+    function update(currentTime) {
+        const progress = Math.min((currentTime - startTime) / duration, 1);
+        const value = Math.floor(progress * target);
+
+        el.textContent = formatNumber(value);
+
+        if (progress < 1) {
+        requestAnimationFrame(update);
+        } else {
+        el.textContent = formatNumber(target);
+        }
+    }
+
+    requestAnimationFrame(update);
+    }
+
+    /* Intersection Observer to trigger once */
+    const statsObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+        if (!prefersReducedMotion) {
+            animateCount(entry.target);
+        } else {
+            entry.target.textContent =
+            formatNumber(parseInt(entry.target.getAttribute('data-target')));
+        }
+        observer.unobserve(entry.target);
+        }
+    });
+    }, { threshold: 0.6 });
+
+    statNumbers.forEach(stat => {
+    statsObserver.observe(stat);
+    });
+    </script>
+    
 </body>
 
 </html>
