@@ -166,16 +166,9 @@ body.dark-mode .contributors-section p {
   flex: 1;
   max-width: 100px;
   display: flex;
+   min-width: 0;
   flex-direction: column;
   gap: 0.6rem;
-}
-
-.contributor-name {
-  font-family: 'Playfair Display', serif;
-  font-weight: 700;
-  font-size: 1.4rem;
-  color: #1a2433; /* dark navy */
-  margin: 0;
 }
 
 .contributor-meta {
@@ -848,9 +841,13 @@ body.dark-mode .contributors-section p {
   font-size: 1.4rem;
   color: #1a2433;
   margin: 0;
-  white-space: nowrap;         
-  overflow: hidden;           
-  text-overflow: ellipsis;    
+
+  /* ✅ FIX: allow full username visibility */
+  white-space: normal;
+  overflow: visible;
+  text-overflow: unset;
+  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 
 .contributor-actions {
