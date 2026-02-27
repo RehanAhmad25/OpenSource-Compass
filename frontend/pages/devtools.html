@@ -12,7 +12,38 @@
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/pr-generator.css">
     <style>
-        /* Force Reset and Overrides for Global Styles */
+        /* ==========================================================================
+           DevTools Theme Variables
+           ========================================================================== */
+        /* Default Light Theme */
+        :root {
+            --bg-primary: #c6d6f3;
+            --bg-secondary: #dcdfe2;
+            --bg-tertiary: #f1f5f9;
+            --text-main: #96d7c9;
+            --text-muted: #64748b;
+            --border-color: #cbd5e1;
+            --accent-color: #d4af37;
+            --accent-hover: #bda030;
+            --theme-transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+
+        /* Dark Theme Overrides */
+        [data-theme="dark"] {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-tertiary: #0b111a;
+            --text-main: #e2e8f0;
+            --text-muted: #94a3b8;
+            --border-color: rgba(255, 255, 255, 0.1);
+            --accent-color: #d4af37;
+            --accent-hover: #fce788;
+        }
+
+        /* ==========================================================================
+           Global & Layout Styles (Replaced hardcoded hex with variables)
+           ========================================================================== */
+        
         html.devtools-page,
         html.devtools-page body {
             margin: 0 !important;
@@ -20,16 +51,16 @@
             height: 100vh !important;
             width: 100vw !important;
             overflow: hidden !important;
-            background: #0f172a !important;
+            background: var(--bg-primary) !important;
+            transition: var(--theme-transition);
         }
 
         body.devtools-body {
             display: flex;
             flex-direction: column;
-            color: #e2e8f0;
+            color: var(--text-main);
             font-family: 'Inter', sans-serif;
             padding-top: 0 !important;
-            /* Remove style.css 90px padding */
         }
 
         /* Modern Scrollbar Styling */
@@ -39,16 +70,16 @@
         }
 
         ::-webkit-scrollbar-track {
-            background: #0f172a;
+            background: var(--bg-primary);
         }
 
         ::-webkit-scrollbar-thumb {
-            background: #334155;
+            background: var(--border-color);
             border-radius: 10px;
         }
 
         ::-webkit-scrollbar-thumb:hover {
-            background: #d4af37;
+            background: var(--accent-color);
         }
 
         /* Integrated Header */
@@ -57,12 +88,13 @@
             align-items: center;
             justify-content: space-between;
             padding: 0 2rem;
-            background: #1e293b;
-            border-bottom: 2px solid #d4af37;
+            background: var(--bg-secondary);
+            border-bottom: 2px solid var(--accent-color);
             height: 64px;
             z-index: 1000;
             flex-shrink: 0;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: var(--theme-transition);
         }
 
         .tools-brand {
@@ -71,7 +103,7 @@
             gap: 0.8rem;
             font-family: 'Playfair Display', serif;
             font-size: 1.2rem;
-            color: #d4af37;
+            color: var(--accent-color);
             white-space: nowrap;
         }
 
@@ -92,7 +124,7 @@
         .tab-btn {
             background: none;
             border: none;
-            color: #94a3b8;
+            color: var(--text-muted);
             padding: 0 1.2rem;
             height: 100%;
             font-size: 0.9rem;
@@ -106,32 +138,21 @@
             border-bottom: 3px solid transparent;
             position: relative;
             top: 1px;
-            /* Visual alignment with header border */
         }
 
         .tab-btn:hover {
-            color: #e2e8f0;
-            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-main);
+            background: var(--bg-tertiary);
         }
 
         .tab-btn.active {
-            color: #d4af37;
-            border-bottom-color: #d4af37;
+            color: var(--accent-color);
+            border-bottom-color: var(--accent-color);
             background: rgba(212, 175, 55, 0.08);
         }
 
-        .tools-brand {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            font-family: 'Playfair Display', serif;
-            font-size: 1.2rem;
-            color: #d4af37;
-            white-space: nowrap;
-        }
-
         .tools-back {
-            color: #94a3b8;
+            color: var(--text-muted);
             text-decoration: none;
             font-size: 0.9rem;
             font-weight: 500;
@@ -139,14 +160,13 @@
             align-items: center;
             gap: 0.5rem;
             transition: color 0.2s;
-            border-left: 1px solid rgba(255, 255, 255, 0.1);
+            border-left: 1px solid var(--border-color);
             padding-left: 1.5rem;
             height: 30px;
-            /* Centered height */
         }
 
         .tools-back:hover {
-            color: #d4af37;
+            color: var(--accent-color);
         }
 
         /* Content Area */
@@ -155,7 +175,8 @@
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            background: #0f172a;
+            background: var(--bg-primary);
+            transition: var(--theme-transition);
         }
 
         .tool-panel {
@@ -177,7 +198,7 @@
             height: 100%;
             border: none;
             border-radius: 8px;
-            background: #0b111a;
+            background: var(--bg-tertiary);
         }
 
         /* Footer */
@@ -186,27 +207,33 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: #0f172a;
-            color: #64748b;
+            background: var(--bg-primary);
+            color: var(--text-muted);
             font-size: 0.75rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            border-top: 1px solid var(--border-color);
             flex-shrink: 0;
+            transition: var(--theme-transition);
         }
 
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .active {
             animation: fadeIn 0.3s ease-out;
+        }
+        
+        /* Force PR Gen Form to use theme variables */
+        .pr-form-header h2, .pr-form-header p, .pr-form-group label {
+            color: var(--text-main);
+            transition: var(--theme-transition);
+        }
+        .pr-form-group input, .pr-form-group textarea {
+            background-color: var(--bg-secondary) !important;
+            color: var(--text-main) !important;
+            border: 1px solid var(--border-color) !important;
+            transition: var(--theme-transition);
         }
     </style>
 </head>
@@ -225,16 +252,26 @@
                 </button>
                 <button class="tab-btn" onclick="switchTab('issue-insights')">
                     <i class="fas fa-lightbulb"></i> Issue Insights
-                    <button class="tab-btn" onclick="switchTab('issue-validator')">
-                        <i class="fas fa-check-double"></i> Issue Validator
-                    </button>
-                    <button class="tab-btn" onclick="switchTab('playground')">
-                        <i class="fas fa-terminal"></i> Git Playground
-                    </button>
+                </button>
+                <button class="tab-btn" onclick="switchTab('issue-validator')">
+                    <i class="fas fa-check-double"></i> Issue Validator
+                </button>
+                <button class="tab-btn" onclick="switchTab('playground')">
+                    <i class="fas fa-terminal"></i> Git Playground
+                </button>
+                <button
+                    id="themeToggle"
+                    aria-label="Toggle dark mode"
+                    title="Toggle dark mode"
+                    style="background: none; border: none; color: var(--accent-color); cursor: pointer; font-size: 1.1rem; margin-left: 0.5rem; transition: transform 0.3s ease;"
+                >
+                    <i class="fas fa-moon" aria-hidden="true"></i>
+                </button>
             </div>
             <a href="../../index.html" class="tools-back">
                 <i class="fas fa-arrow-left"></i> Back Home
             </a>
+            
         </div>
     </nav>
 
@@ -367,7 +404,7 @@
                     </div>
                     <div id="validatorResultContent" class="pr-preview-content"></div>
                     <div class="ai-disclaimer"
-                        style="margin-top: 1rem; font-size: 0.8rem; color: #64748b; text-align: center;">
+                        style="margin-top: 1rem; font-size: 0.8rem; color: var(--text-muted); text-align: center;">
                         <i class="fas fa-robot"></i> Generated by AI. Please verify with the actual issue description
                         and codebase.
                     </div>
@@ -387,17 +424,69 @@
     </footer>
 
     <script>
+        // --- Tab Switching Logic ---
         function switchTab(tabId) {
-            // Update Buttons
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             const activeBtn = Array.from(document.querySelectorAll('.tab-btn')).find(btn => btn.getAttribute('onclick').includes(tabId));
             if (activeBtn) activeBtn.classList.add('active');
 
-            // Update Panels
             document.querySelectorAll('.tool-panel').forEach(panel => panel.classList.remove('active'));
             document.getElementById(tabId).classList.add('active');
         }
+
+        // --- Theme Toggle Logic ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggleBtn = document.getElementById('themeToggle');
+            const icon = themeToggleBtn.querySelector('i');
+            const root = document.documentElement;
+
+            // Optional: Check if user previously selected a theme
+            const currentTheme = localStorage.getItem('devtools-theme') || 'dark'; // Defaults to dark mode
+            if (currentTheme === 'light') {
+                root.removeAttribute('data-theme');
+                icon.classList.replace('fa-sun', 'fa-moon'); // Show moon in light mode
+            } else {
+                root.setAttribute('data-theme', 'dark');
+                icon.classList.replace('fa-moon', 'fa-sun'); // Show sun in dark mode
+            }
+
+            // Click Event to switch theme
+            themeToggleBtn.addEventListener('click', () => {
+                if (root.hasAttribute('data-theme')) {
+                    // Switch to Light
+                    root.removeAttribute('data-theme');
+                    icon.classList.replace('fa-sun', 'fa-moon');
+                    localStorage.setItem('devtools-theme', 'light');
+                } else {
+                    // Switch to Dark
+                    root.setAttribute('data-theme', 'dark');
+                    icon.classList.replace('fa-moon', 'fa-sun');
+                    localStorage.setItem('devtools-theme', 'dark');
+                }
+            });
+        });
+
+        // --- Hamburger Logic Fallback ---
+        const navbarContainer = document.getElementById('navbar');
+        if (navbarContainer && typeof navbarHTML !== 'undefined') {
+            navbarContainer.innerHTML = navbarHTML;
+            const hamburgerBtn = navbarContainer.querySelector('.hamburger-menu');
+            const navLinks = navbarContainer.querySelector('.nav-links');
+
+            if (hamburgerBtn && navLinks) {
+                hamburgerBtn.addEventListener('click', () => {
+                    const isActive = navLinks.classList.toggle('active');
+                    hamburgerBtn.innerHTML = isActive
+                        ? '<i class="fas fa-times"></i>'
+                        : '<i class="fas fa-bars"></i>';
+                    hamburgerBtn.setAttribute('aria-expanded', isActive);
+                });
+            }
+        }
     </script>
+    <script src="../js/components.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="/frontend/js/theme.js"></script>
 
     <script src="../js/pr-generator.js"></script>
     <script src="../js/issue-insights.js"></script>
