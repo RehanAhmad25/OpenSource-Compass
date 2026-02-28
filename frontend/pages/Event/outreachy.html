@@ -1181,12 +1181,82 @@
             gap: 2rem;
         }
 
+        /* ================================
+        CONTRIBUTION TIPS – PREMIUM STYLE
+        ================================ */
+
         .tip {
-            padding: 1.6rem;
-            border-radius: 18px;
-            background: rgba(255, 255, 255, 0.55);
-            backdrop-filter: blur(12px);
-            box-shadow: var(--shadow-main);
+            position: relative;
+            padding: 1.8rem;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(14px);
+
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+
+            transition:
+                transform 0.45s var(--bounce-curve),
+                box-shadow 0.35s ease,
+                border 0.3s ease,
+                background 0.35s ease;
+        }
+
+        /* GOOD CARD (Green Accent) */
+        .tip.good {
+            border-left: 4px solid #2ecc71;
+        }
+
+        /* BAD CARD (Amber Accent – softer than red) */
+        .tip.bad {
+            border-left: 4px solid #f1c40f;
+        }
+
+        /* HOVER EFFECT */
+        .tip:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow:
+                0 25px 50px rgba(0, 0, 0, 0.25);
+        }
+
+        /* Green Glow */
+        .tip.good:hover {
+            box-shadow:
+                0 25px 50px rgba(0, 0, 0, 0.25),
+                0 0 35px rgba(46, 204, 113, 0.25);
+        }
+
+        /* Amber Glow */
+        .tip.bad:hover {
+            box-shadow:
+                0 25px 50px rgba(0, 0, 0, 0.25),
+                0 0 35px rgba(241, 196, 15, 0.25);
+        }
+
+        /* Title refinement */
+        .tip h4 {
+            margin-bottom: 0.9rem;
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--deep-navy);
+            transition: transform 0.3s ease;
+        }
+
+        .tip:hover h4 {
+            transform: translateX(6px);
+        }
+
+        .tip ul {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            padding-left: 1.2rem;
+        }
+
+        /* Dark Mode */
+        body.dark-mode .tip {
+            background: rgba(27, 34, 53, 0.75);
+            border: 1px solid rgba(255, 255, 255, 0.06);
         }
 
         .tip h4 {
