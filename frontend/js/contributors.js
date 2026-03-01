@@ -157,18 +157,26 @@ function renderContributorsGrid(grid, list) {
     return;
   }
 
-  // 🔥 Remove Top 3 contributors (already shown in highlight section)
-  const topThreeLogins = new Set(
-    [...list]
-      .sort((a, b) => (b.merged_prs || 0) - (a.merged_prs || 0))
-      .slice(0, 3)
-      .map(c => c.login)
-  );
+  let filteredList = list;
 
-  const filteredList = list.filter(c => !topThreeLogins.has(c.login));
+  // Only remove top 3 when showing full unfiltered list
+  if (list.length === allContributors.length) {
+    const topThreeLogins = new Set(
+      [...list]
+        .sort((a, b) => (b.merged_prs || 0) - (a.merged_prs || 0))
+        .slice(0, 3)
+        .map(c => c.login)
+    );
+
+    filteredList = list.filter(c => !topThreeLogins.has(c.login));
+  }
 
   if (!filteredList.length) {
-    renderEmptyState(grid);
+    grid.innerHTML = `
+      <div style="grid-column:1/-1;text-align:center;padding:2rem;">
+        No contributors found.
+      </div>
+    `;
     return;
   }
 
@@ -463,11 +471,8 @@ function debounce(fn, delay = 150) {
     t = setTimeout(() => fn(...args), delay);
   };
 }
-const searchInput = document.getElementById('contributor-search');
-const botToggle = document.getElementById('toggle-bots');
 
-searchInput?.addEventListener('input', debounce(applyFilters));
-botToggle?.addEventListener('change', applyFilters);
+setupFilters();
 
 function updateStats(list, allList = allContributors) {
   const stats = document.getElementById("contributors-stats");
@@ -583,4 +588,14 @@ function animateStatCounts() {
 
     tick();
   });
+}
+
+function setupFilters() {
+  const searchInput = document.getElementById('contributor-search');
+  const botToggle = document.getElementById('toggle-bots');
+
+  if (!searchInput || !botToggle) return;
+
+  searchInput.addEventListener('input', debounce(applyFilters));
+  botToggle.addEventListener('change', applyFilters);
 }
